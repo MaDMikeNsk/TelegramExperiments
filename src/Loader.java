@@ -9,7 +9,8 @@ import java.io.InputStreamReader;
 
 public class Loader
 {
-    private static final String ANSI_RED = "\u001B[31m";            //Будем выводить цыетвной текст в консоль
+    //Будем выводить цветной текст в консоль
+    private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws IOException
@@ -18,16 +19,19 @@ public class Loader
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println( ANSI_RED + "Please, type phone number:" + ANSI_RESET);
-        String phoneNumber = reader.readLine().trim();            //Записываем номер в переменную phoneNumber
+        //Записываем номер в переменную phoneNumber
+        String phoneNumber = reader.readLine().trim();
         phoneNumber = phoneNumber.replaceAll("[-()+]+", "");
 
-        bridge.authSendCode(phoneNumber); //Высылаем код подтверждения
+        //Высылаем код подтверждения
+        bridge.authSendCode(phoneNumber);
         System.out.println(ANSI_RED + "Please, type sms code:" + ANSI_RESET);
-        String smsCode = reader.readLine().trim();
-        smsCode = smsCode.replaceAll("[-()+]+", "");
-        AuthAuthorization authorizatedUser = bridge.authSignIn(smsCode);
+        String code = reader.readLine().trim();
+        code = code.replaceAll("[-()+]+", "");
+        AuthAuthorization authorizatedUser = bridge.authSignIn(code);
 
-        User me = authorizatedUser.getUser();                    //Выводим данные авторизованного юзера
+        //Выводим данные авторизованного юзера
+        User me = authorizatedUser.getUser();
         System.out.println(ANSI_RED + "First name: " + ANSI_RESET + me.getFirstName());
         System.out.println(ANSI_RED + "Last name: " + ANSI_RESET + me.getLastName());
         System.out.println(ANSI_RED + "Phone number: " + ANSI_RESET + me.getPhone());
