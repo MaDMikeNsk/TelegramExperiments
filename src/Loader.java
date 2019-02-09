@@ -1,11 +1,12 @@
 import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
-import org.javagram.response.AuthSentCode;
 import org.javagram.response.object.User;
+import org.javagram.response.object.UserContact;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Loader
 {
@@ -30,10 +31,16 @@ public class Loader
         code = code.replaceAll("[-()+]+", "");
         AuthAuthorization authorizatedUser = bridge.authSignIn(code);
 
-        //Выводим данные авторизованного юзера
+        //Выводим данные авторизованного User'a
         User me = authorizatedUser.getUser();
         System.out.println(ANSI_RED + "First name: " + ANSI_RESET + me.getFirstName());
         System.out.println(ANSI_RED + "Last name: " + ANSI_RESET + me.getLastName());
         System.out.println(ANSI_RED + "Phone number: " + ANSI_RESET + me.getPhone());
+
+        //Выводим контакты User'а
+        ArrayList<UserContact> contactsList = bridge.contactsGetContacts();
+        for (UserContact item : contactsList) {
+            System.out.println(item + " - " + item.getPhone());
+        }
     }
 }
