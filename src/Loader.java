@@ -26,6 +26,8 @@ public class Loader
 
         //Высылаем код подтверждения
         bridge.authSendCode(phoneNumber);
+
+        //Авторизация
         System.out.println(ANSI_RED + "Please, type sms code:" + ANSI_RESET);
         String code = reader.readLine().trim();
         code = code.replaceAll("[-()+]+", "");
